@@ -171,7 +171,8 @@
             crossorigin="anonymous"></script>
 
     {{isset($js) ? $js : ''}}
-    @livewireStyles
+    @livewireScripts
+
 </body>
 
 </html>

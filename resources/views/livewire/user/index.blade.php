@@ -15,13 +15,32 @@
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     </x-slot>
 
+    @if ($createUser)
     @livewire('user.create')
+    @endif
     <h1 class="text-3xl text-black pb-6">Users</h1>
+
+    @if (session()->has('message'))
+    {{-- alert --}}
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-500 alert">
+        <span class="text-xl inline-block mr-5 align-middle">
+            <i class="fas fa-bell"></i>
+        </span>
+        <span class="inline-block align-middle mr-8">
+            {{session('message')}}
+        </span>
+        <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+                onclick="closeAlert(event)">
+            <span>×</span>
+
+        </button>
+    </div>
+    @endif
 
     <div class="w-full">
         @if (Auth::user()->hasPermissionTo('create users'))
-        <a href="#"
-           class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Tambah</a>
+        <button wire:click="$toggle('createUser')"
+                class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Tambah</button>
         @endif
         <div class="bg-white overflow-auto mt-5">
             <table id="example"
@@ -84,6 +103,23 @@
         responsive.recalc();
         });
         //# sourceURL=pen.js
+        </script>
+        <script>
+            function closeAlert(event){
+          let element = event.target;
+          while(element.nodeName !== "BUTTON"){
+            element = element.parentNode;
+          }
+          element.parentNode.parentNode.removeChild(element.parentNode);
+        }
+        </script>
+        <script>
+            $(document).ready(function(){
+            window.livewire.on('alert',()=>{
+                setTimeout(function(){ $(".alert").fadeOut('fast');
+                }, 3000); // 3 secs
+            });
+        });
         </script>
     </x-slot>
 </div>
