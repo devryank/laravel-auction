@@ -71,10 +71,10 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="tables.html"
+            <a href="{{route('dashboard.user.index')}}"
                class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
-                <i class="fas fa-table mr-3"></i>
-                Tables
+                <i class="fas fa-users mr-3"></i>
+                Users
             </a>
         </nav>
     </aside>
@@ -149,7 +149,9 @@
         </header>
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
-            {{$slot}}
+            <main class="w-full flex-grow p-6">
+                {{$slot}}
+            </main>
 
             <footer class="w-full bg-white text-right p-4">
                 Built by <a target="_blank"
