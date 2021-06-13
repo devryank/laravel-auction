@@ -98,8 +98,18 @@
                        class="block px-4 py-2 account-link hover:text-white">Account</a>
                     <a href="#"
                        class="block px-4 py-2 account-link hover:text-white">Support</a>
-                    <a href="#"
-                       class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+
+                    <a href="{{ route('logout') }}"
+                       class="block px-4 py-2 account-link hover:text-white"
+                       onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                        Sign Out
+                    </a>
+                    <form method="POST"
+                          id="logout-form"
+                          action="{{ route('logout') }}">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </header>
@@ -137,11 +147,18 @@
                     <i class="fas fa-user mr-3"></i>
                     My Account
                 </a>
-                <a href="#"
-                   class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{ route('logout') }}"
+                   class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+                   onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt mr-3"></i>
                     Sign Out
                 </a>
+                <form method="POST"
+                      id="logout-form"
+                      action="{{ route('logout') }}">
+                    @csrf
+                </form>
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
