@@ -40,19 +40,19 @@ class PermissionsDemoSeeder extends Seeder
         // create demo users
         $user = \App\Models\User::factory()->create([
             'name' => 'Super-Admin User',
-            'email' => 'superadmin@example.com',
+            'email' => 'superadmin@app.test',
         ]);
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Seller User',
-            'email' => 'admin@example.com',
+            'email' => 'seller@app.test',
         ]);
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Bidder User',
-            'email' => 'test@example.com',
+            'email' => 'bidder@app.test',
         ]);
         $user->assignRole($role3);
     }
