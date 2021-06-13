@@ -42,54 +42,51 @@
         <button wire:click="$toggle('createUser')"
                 class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Tambah</button>
         @endif
+        <span class="float-right">
+            <select wire:model="paginate"
+                    class="px-3 py-2 bg-gray-200">
+                <option value="
+                5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <input wire:model="search"
+                   type="text"
+                   class="px-3 py-2 bg-gray-200"
+                   placeholder="Search">
+        </span>
         <div class="bg-white overflow-auto mt-5">
-            <table id="example"
-                   class="min-w-full bg-white"
+            <table class="min-w-full bg-white"
                    style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead class="bg-gray-800 text-white">
                     <tr>
                         <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Last name</th>
-                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Phone</th>
-                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Email</td>
+                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Level</th>
+                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
+                    @foreach ($users as $user)
                     <tr>
-                        <td class="w-1/3 text-left py-3 px-4">Lian</td>
-                        <td class="w-1/3 text-left py-3 px-4">Smith</td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="tel:622322662">622322662</a></td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
+                        <td class="w-1/3 text-left py-3 px-4">{{$user->name}}</td>
+                        <td class="w-1/3 text-left py-3 px-4">{{$user->email}}</td>
+                        <td class="w-1/3 text-left py-3 px-4">{{$user->roles->pluck('name')->implode(', ')}}</td>
+                        <td class="w-1/3 text-left py-3 px-4">
+                            <div class="flex space-x-2">
+                                <button
+                                        class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
+                                <button
+                                        class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded">Delete</button>
+                            </div>
+                        </td>
                     </tr>
-                    <tr class="bg-gray-200">
-                        <td class="w-1/3 text-left py-3 px-4">Emma</td>
-                        <td class="w-1/3 text-left py-3 px-4">Johnson</td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="tel:622322662">622322662</a></td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                    </tr>
-                    <tr>
-                        <td class="w-1/3 text-left py-3 px-4">Oliver</td>
-                        <td class="w-1/3 text-left py-3 px-4">Williams</td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="tel:622322662">622322662</a></td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                    </tr>
-                    <tr class="bg-gray-200">
-                        <td class="w-1/3 text-left py-3 px-4">Isabella</td>
-                        <td class="w-1/3 text-left py-3 px-4">Brown</td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="tel:622322662">622322662</a></td>
-                        <td class="text-left py-3 px-4"><a class="hover:text-blue-500"
-                               href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
+        {{$users->links()}}
     </div>
 
     <x-slot name="js">
