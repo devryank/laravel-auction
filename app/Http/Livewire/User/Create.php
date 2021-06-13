@@ -17,11 +17,6 @@ class Create extends Component
         return view('livewire.user.create');
     }
 
-    public function closeCreateUserHandler()
-    {
-        $this->emit('closeCreateUser');
-    }
-
     public function store()
     {
         $this->validate([
