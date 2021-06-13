@@ -13,7 +13,7 @@ class Index extends Component
 
     protected $listeners = [
         'refreshUser' => '$refresh',
-        'closeCreateUser' => 'closeCreateUserHandler',
+        'userStored' => 'userStoredHandler',
     ];
 
     protected $updateQueryString = [
@@ -44,5 +44,11 @@ class Index extends Component
     public function closeCreateUserHandler()
     {
         $this->createUser = false;
+    }
+
+    public function userStoredHandler()
+    {
+        $this->closeCreateUserHandler();
+        session()->flash('message', 'Successfully created user');
     }
 }

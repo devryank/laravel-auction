@@ -24,7 +24,7 @@
     {{-- alert --}}
     <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-500 alert">
         <span class="text-xl inline-block mr-5 align-middle">
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-check"></i>
         </span>
         <span class="inline-block align-middle mr-8">
             {{session('message')}}
@@ -109,14 +109,6 @@
           }
           element.parentNode.parentNode.removeChild(element.parentNode);
         }
-        </script>
-        <script>
-            $(document).ready(function(){
-            window.livewire.on('alert',()=>{
-                setTimeout(function(){ $(".alert").fadeOut('fast');
-                }, 3000); // 3 secs
-            });
-        });
         </script>
     </x-slot>
 </div>

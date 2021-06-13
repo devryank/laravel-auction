@@ -41,11 +41,7 @@ class Create extends Component
                 'password' => Hash::make($this->password),
             ]);
             $user->assignRole('super-admin');
-
-            $this->emit('closeCreateUser');
-            session()->flash('message', 'Successfully created user');
-            $this->emit('alert');
-            return;
+            $this->emit('userStored');
         }
     }
 }
