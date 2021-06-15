@@ -28,7 +28,7 @@
                                    for="email">Email</label>
                             <input class="w-full px-5  py-1 text-gray-700 bg-gray-200 rounded @error('email') border-2 border-red-300 @enderror"
                                    id="email"
-                                   type="text"
+                                   type="email"
                                    required=""
                                    aria-label="Email"
                                    wire:model="email">
@@ -41,7 +41,7 @@
                                    for="password">Password</label>
                             <input class="w-full px-5  py-1 text-gray-700 bg-gray-200 rounded @error('password') border-2 border-red-300 @enderror"
                                    id="password"
-                                   type="text"
+                                   type="password"
                                    required=""
                                    aria-label="Password"
                                    wire:model="password">
@@ -53,7 +53,7 @@
                     <div class="mt-6">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
                                 type="submit">Submit</button>
-                        <button wire:click="$emit('closeCreateUser')"
+                        <button wire:click.prevent="$emit('closeCreateUser')"
                                 class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">Cancel</button>
                     </div>
                 </form>

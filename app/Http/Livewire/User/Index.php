@@ -15,6 +15,7 @@ class Index extends Component
     protected $listeners = [
         'refreshUser' => '$refresh',
         'userStored' => 'userStoredHandler',
+        'closeCreateUser' => 'closeCreateUserHandler',
         'userProhibited' => 'userProhibitedHandler',
     ];
 

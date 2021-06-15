@@ -12,9 +12,18 @@ class Create extends Component
     public $email;
     public $password;
 
+    protected $listeners = [
+        'closeCreateUser' => 'closeCreateUserHandler',
+    ];
+
     public function render()
     {
         return view('livewire.user.create');
+    }
+
+    public function closeCreateUserHandler()
+    {
+        $this->emit('closeCreateUser');
     }
 
     public function store()

@@ -32,20 +32,33 @@ class Update extends Component
     public function update()
     {
         $user = User::findOrFail($this->userId);
-        $this->validate([
-            'name' => ['required', 'string', 'min:2', 'max:100'],
-            'email' => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['required', 'string', 'min:6'],
-        ]);
 
         if (request()->user()->hasPermissionTo('update users')) {
-            $user->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => Hash::make($this->password),
-            ]);
-            $user->assignRole('super-admin');
-            $this->emit('userStored');
+            if ($this->editPassword) {
+                $this->validate([
+                    'name' => ['required', 'string', 'min:2', 'max:100'],
+                    'email' => ['required', 'string', 'email', 'unique:users'],
+                    'password' => ['required', 'string', 'min:6'],
+                ]);
+
+                $user->update([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => Hash::make($this->password),
+                ]);
+            } else {
+                $this->validate([
+                    'name' => ['required', 'string', 'min:2', 'max:100'],
+                    'email' => ['required', 'string', 'email', 'unique:users'],
+                ]);
+
+                $user->update([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                ]);
+            }
         }
+        $user->assignRole('super-admin');
+        $this->emit('userStored');
     }
 }

@@ -85,7 +85,9 @@
                         <td class="w-1/3 text-left py-3 px-4">{{$user->roles->pluck('name')->implode(', ')}}</td>
                         <td class="w-1/3 text-left py-3 px-4">
                             <div class="flex space-x-2">
-                                @if (Auth::user()->hasPermissionTo('update users') AND Auth::user()->id == $user->id)
+
+                                @if ((Auth::user()->hasPermissionTo('update users') AND Auth::user()->id == $user->id)
+                                OR Auth::user()->hasRole('super-admin'))
                                 <button wire:click="editUser({{$user->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
                                 @else
