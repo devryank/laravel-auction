@@ -33,6 +33,8 @@ class Create extends Component
             ]);
             $user->assignRole('super-admin');
             $this->emit('userStored');
+        } else {
+            $this->emit('userProhibited');
         }
     }
 }
