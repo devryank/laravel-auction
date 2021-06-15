@@ -18,11 +18,14 @@
     @if ($createUser)
     @livewire('user.create')
     @endif
+    @if ($editUser)
+    @livewire('user.update')
+    @endif
     <h1 class="text-3xl text-black pb-6">Users</h1>
 
     @if (session()->has('message'))
     {{-- alert --}}
-    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-500 alert">
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-{{session('color')}}-500 alert">
         <span class="text-xl inline-block mr-5 align-middle">
             <i class="fas fa-check"></i>
         </span>
@@ -38,24 +41,31 @@
     @endif
 
     <div class="w-full">
-        @if (Auth::user()->hasPermissionTo('create users'))
-        <button wire:click="$toggle('createUser')"
-                class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Tambah</button>
-        @endif
-        <span class="float-right">
-            <select wire:model="paginate"
-                    class="px-3 py-2 bg-gray-200">
-                <option value="
+
+        <div class="grid grid-cols-6">
+
+            @if (Auth::user()->hasPermissionTo('create users'))
+            <div>
+                <button wire:click="$toggle('createUser')"
+                        class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Tambah</button>
+                @endif
+            </div>
+            <div class="col-start-5 col-span-2 text-right">
+                <select wire:model="paginate"
+                        class="px-3 py-2 bg-gray-200">
+                    <option value="
                 5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <input wire:model="search"
-                   type="text"
-                   class="px-3 py-2 bg-gray-200"
-                   placeholder="Search">
-        </span>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <input wire:model="search"
+                       type="text"
+                       class="px-3 py-2 bg-gray-200"
+                       placeholder="Search">
+            </div>
+        </div>
+
         <div class="bg-white overflow-auto mt-5">
             <table class="min-w-full bg-white"
                    style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -75,8 +85,13 @@
                         <td class="w-1/3 text-left py-3 px-4">{{$user->roles->pluck('name')->implode(', ')}}</td>
                         <td class="w-1/3 text-left py-3 px-4">
                             <div class="flex space-x-2">
-                                <button
+                                @if (Auth::user()->hasPermissionTo('update users') AND Auth::user()->id == $user->id)
+                                <button wire:click="editUser({{$user->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
+                                @else
+                                <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
+                                        disabled>Edit</button>
+                                @endif
                                 <button
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded">Delete</button>
                             </div>
