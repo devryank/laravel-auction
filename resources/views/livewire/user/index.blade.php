@@ -21,6 +21,9 @@
     @if ($editUser)
     @livewire('user.update')
     @endif
+    @if ($deleteUser)
+    @livewire('user.delete')
+    @endif
     <h1 class="text-3xl text-black pb-6">Users</h1>
 
     @if (session()->has('message'))
@@ -47,7 +50,7 @@
             @if (Auth::user()->hasPermissionTo('create users'))
             <div>
                 <button wire:click="$toggle('createUser')"
-                        class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Tambah</button>
+                        class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Add</button>
                 @endif
             </div>
             <div class="col-start-5 col-span-2 text-right">
@@ -94,8 +97,11 @@
                                 <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
                                         disabled>Edit</button>
                                 @endif
-                                <button
-                                        class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded">Delete</button>
+                                <button wire:click="deleteUser({{$user->id}})"
+                                        class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
+                                        onclick="scrollUp()">
+                                    Delete
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -125,6 +131,11 @@
             element = element.parentNode;
           }
           element.parentNode.parentNode.removeChild(element.parentNode);
+        }
+
+        //scroll
+        function scrollUp() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         </script>
     </x-slot>
