@@ -9,7 +9,7 @@
                       method="post"
                       class="p-5 bg-white rounded shadow-xl">
                     @csrf
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-4 gap-4">
                         <div class="">
                             <label class="block text-sm text-gray-600"
                                    for="name">Name</label>
@@ -26,7 +26,7 @@
                         <div class="">
                             <label class="block text-sm text-gray-600"
                                    for="email">Email</label>
-                            <input class="w-full px-5  py-1 text-gray-700 bg-gray-200 rounded @error('email') border-2 border-red-300 @enderror"
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('email') border-2 border-red-300 @enderror"
                                    id="email"
                                    type="email"
                                    required=""
@@ -39,13 +39,29 @@
                         <div class="">
                             <label class="block text-sm text-gray-600"
                                    for="password">Password</label>
-                            <input class="w-full px-5  py-1 text-gray-700 bg-gray-200 rounded @error('password') border-2 border-red-300 @enderror"
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('password') border-2 border-red-300 @enderror"
                                    id="password"
                                    type="password"
                                    required=""
                                    aria-label="Password"
                                    wire:model="password">
                             @error('password')
+                            <small class="text-red-500">{{$message}}</small>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label class="block text-sm text-gray-600"
+                                   for="role">Role</label>
+                            <select class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded @error('role') border-2 border-red-300 @enderror"
+                                    id="role"
+                                    aria-label="Role"
+                                    wire:model="role">
+                                <option>-- Select One --</option>
+                                @foreach ($roles as $role)
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('role')
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
