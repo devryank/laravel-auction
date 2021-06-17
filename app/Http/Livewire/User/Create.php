@@ -3,14 +3,16 @@
 namespace App\Http\Livewire\User;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class Create extends Component
 {
     public $name;
     public $email;
     public $password;
+    public $role;
 
     protected $listeners = [
         'closeCreateUser' => 'closeCreateUserHandler',
@@ -18,7 +20,9 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.user.create');
+        return view('livewire.user.create', [
+            'roles' => Role::all(),
+        ]);
     }
 
     public function closeCreateUserHandler()
@@ -32,6 +36,7 @@ class Create extends Component
             'name' => ['required', 'string', 'min:2', 'max:100'],
             'email' => ['required', 'string', 'email', 'unique:users'],
             'password' => ['required', 'string', 'min:6'],
+            'role' => ['required', 'not_in:0'],
         ]);
 
         if (request()->user()->hasPermissionTo('create users')) {
@@ -39,6 +44,7 @@ class Create extends Component
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
+                'role' => $this->role,
             ]);
             $user->assignRole('super-admin');
             $this->emit('userStored');
