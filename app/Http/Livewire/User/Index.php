@@ -16,7 +16,7 @@ class Index extends Component
     protected $listeners = [
         'refreshUser' => '$refresh',
         'userStored' => 'userStoredHandler',
-        'closeCreateUser' => 'closeUserHandler',
+        'closeUser' => 'closeUserHandler',
         'userProhibited' => 'userProhibitedHandler',
         'userDestroyed' => 'userDestroyedHandler',
     ];
@@ -41,17 +41,17 @@ class Index extends Component
         ]);
     }
 
+    public function closeUserHandler()
+    {
+        $this->editUser = false;
+        $this->createUser = false;
+        $this->deleteUser = false;
+    }
+
     public function createUser()
     {
         $this->closeUserHandler();
         $this->createUser = true;
-    }
-
-    public function closeUserHandler()
-    {
-        $this->createUser = false;
-        $this->editUser = false;
-        $this->deleteUser = false;
     }
 
     public function userStoredHandler()
