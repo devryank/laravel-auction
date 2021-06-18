@@ -1,20 +1,4 @@
 <div>
-    <x-slot name="css">
-        <!--Regular Datatables CSS-->
-        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
-              rel="stylesheet">
-        <!--Responsive Extension Datatables CSS-->
-        <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"
-              rel="stylesheet">
-
-        <script type="text/javascript"
-                src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-        <!--Datatables -->
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    </x-slot>
-
     <div wire:loading>
         Please wait ...
     </div>
@@ -31,12 +15,12 @@
 
     @if (session()->has('message'))
     {{-- alert --}}
-    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-{{session('color')}}-500 alert">
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-500 alert">
         <span class="text-xl inline-block mr-5 align-middle">
             <i class="fas fa-check"></i>
         </span>
         <span class="inline-block align-middle mr-8">
-            {{session('message')}}
+            test
         </span>
         <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
                 onclick="closeAlert(event)">
@@ -116,17 +100,6 @@
     </div>
 
     <x-slot name="js">
-        <script id="rendered-js">
-            $(document).ready(function () {
-
-        var table = $('#example').DataTable({
-            responsive: true }).
-
-        columns.adjust().
-        responsive.recalc();
-        });
-        //# sourceURL=pen.js
-        </script>
         <script>
             function closeAlert(event){
           let element = event.target;
