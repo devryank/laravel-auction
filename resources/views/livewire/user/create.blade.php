@@ -69,7 +69,7 @@
                     <div class="mt-6">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
                                 type="submit">Submit</button>
-                        <button wire:click.prevent="$emit('closeCreateUser')"
+                        <button wire:click.prevent="$emit('closeUser')"
                                 class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">Cancel</button>
                     </div>
                 </form>
