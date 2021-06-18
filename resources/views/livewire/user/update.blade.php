@@ -10,7 +10,8 @@
                       class="p-5 bg-white rounded shadow-xl">
                     @csrf
                     @method('PUT')
-                    <div class="grid grid-cols-2 gap-4">
+                    @if (Auth::user()->id == $userId)
+                    <div class="grid grid-cols-3 gap-4">
                         <div class="">
                             <label class="block text-sm text-gray-600"
                                    for="name">Name</label>
@@ -37,11 +38,48 @@
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
+                        <div class="">
+                            <label class="block text-sm text-gray-600"
+                                   for="role">Role</label>
+                            <select class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded @error('role') border-2 border-red-300 @enderror"
+                                    id="role"
+                                    aria-label="Role"
+                                    wire:model="roleId">
+                                @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">
+                                    {{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('role')
+                            <small class="text-red-500">{{$message}}</small>
+                            @enderror
+                        </div>
                     </div>
+                    @else
+                    <div class="grid grid-cols-1 gap-4">
+
+                        <div class="">
+                            <label class="block text-sm text-gray-600"
+                                   for="role">Role</label>
+                            <select class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded @error('role') border-2 border-red-300 @enderror"
+                                    id="role"
+                                    aria-label="Role"
+                                    wire:model="roleId">
+                                @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">
+                                    {{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('role')
+                            <small class="text-red-500">{{$message}}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    @endif
                     <div class="mt-6">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
                                 type="submit">Submit</button>
-                        <button wire:click.prevent="$emit('closeCreateUser')"
+                        <button wire:click.prevent="$emit('closeUser')"
                                 class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">Cancel</button>
                     </div>
                 </form>
