@@ -11,7 +11,7 @@
                     @csrf
                     @method('PUT')
                     @if (Auth::user()->id == $userId)
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-4 gap-4">
                         <div class="">
                             <label class="block text-sm text-gray-600"
                                    for="name">Name</label>
@@ -51,6 +51,18 @@
                                 @endforeach
                             </select>
                             @error('role')
+                            <small class="text-red-500">{{$message}}</small>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label class="block text-sm text-gray-600"
+                                   for="password">Password</label>
+                            <input class="w-full px-5  py-1 text-gray-700 bg-gray-200 rounded @error('password') border-2 border-red-300 @enderror"
+                                   id="password"
+                                   type="password"
+                                   aria-label="Password"
+                                   wire:model="password">
+                            @error('password')
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>

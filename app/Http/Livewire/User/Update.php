@@ -6,13 +6,14 @@ use App\Models\User;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Update extends Component
 {
     public $userId;
     public $name;
     public $email;
-    public $password;
+    public $password = '';
     public $roleId;
 
     protected $listeners = [
@@ -41,11 +42,11 @@ class Update extends Component
 
         if (request()->user()->hasPermissionTo('update users')) {
             if (Auth::user()->id == $this->userId) {
-                if ($this->editPassword) {
+                if ($this->password !== '') {
                     $this->validate([
                         'name' => ['required', 'string', 'min:2', 'max:100'],
-                        'email' => ['required', 'string', 'email', 'unique:users'],
-                        'role' => ['required', 'not_in:0'],
+                        'email' => ['required', 'string', 'email'],
+                        'roleId' => ['required', 'not_in:0'],
                         'password' => ['required', 'string', 'min:6'],
                     ]);
 
@@ -55,11 +56,17 @@ class Update extends Component
                         'role' => $this->roleId,
                         'password' => Hash::make($this->password),
                     ]);
+
+                    // last role 
+                    $user->removeRole($user->roles['0']['name']);
+                    // new role
+                    $user->assignRole($this->roleId);
+                    return redirect()->route('login');
                 } else {
                     $this->validate([
                         'name' => ['required', 'string', 'min:2', 'max:100'],
-                        'email' => ['required', 'string', 'email', 'unique:users'],
-                        'role' => ['required', 'not_in:0'],
+                        'email' => ['required', 'string', 'email'],
+                        'roleId' => ['required', 'not_in:0'],
                     ]);
 
                     $user->update([
@@ -74,17 +81,17 @@ class Update extends Component
                     'roleId' => ['required', 'not_in:0'],
                 ]);
 
-                // last role 
-                $user->removeRole($user->roles['0']['name']);
 
                 $user->update([
                     'role' => $this->roleId,
                 ]);
-
-                // new role
-                $user->assignRole($this->roleId);
             }
         }
-        $this->emit('userStored');
+        // last role 
+        $user->removeRole($user->roles['0']['name']);
+        // new role
+        $user->assignRole($this->roleId);
+
+        $this->emit('userUpdate');
     }
 }
