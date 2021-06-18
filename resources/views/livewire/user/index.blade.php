@@ -15,6 +15,9 @@
         <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     </x-slot>
 
+    <div wire:loading>
+        Please wait ...
+    </div>
     @if ($createUser)
     @livewire('user.create')
     @endif
@@ -49,7 +52,7 @@
 
             @if (Auth::user()->hasPermissionTo('create users'))
             <div>
-                <button wire:click="$toggle('createUser')"
+                <button wire:click="createUser"
                         class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Add</button>
                 @endif
             </div>
