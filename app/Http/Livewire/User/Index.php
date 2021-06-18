@@ -16,6 +16,7 @@ class Index extends Component
     protected $listeners = [
         'refreshUser' => '$refresh',
         'userStored' => 'userStoredHandler',
+        'userUpdate' => 'userUpdateHandler',
         'closeUser' => 'closeUserHandler',
         'userProhibited' => 'userProhibitedHandler',
         'userDestroyed' => 'userDestroyedHandler',
@@ -58,7 +59,7 @@ class Index extends Component
     {
         $this->closeUserHandler();
         session()->flash('color', 'green');
-        session()->flash('message', 'Successfully created user');
+        session()->flash('message', 'User successfully created');
     }
 
     public function editUser($id)
@@ -66,6 +67,13 @@ class Index extends Component
         $this->closeUserHandler();
         $this->editUser = true;
         $this->emit('userEdit', $id);
+    }
+
+    public function userUpdateHandler()
+    {
+        $this->closeUserHandler();
+        session()->flash('color', 'green');
+        session()->flash('message', 'User successfully updated');
     }
 
     public function userProhibitedHandler()
