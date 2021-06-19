@@ -67,14 +67,20 @@
         </div>
         <nav class="text-white text-base font-semibold pt-3">
             <a href="index.html"
-               class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+               class="flex items-center {{Request::segment(2) == '' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
             <a href="{{route('dashboard.user.index')}}"
-               class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+               class="flex items-center {{Request::segment(2) == 'users' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-users mr-3"></i>
                 Users
+            </a>
+
+            <a href="{{route('dashboard.user.index')}}"
+               class="flex items-center {{Request::segment(2) == 'roles' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                <i class="fas fa-layer-group mr-3"></i>
+                Roles
             </a>
         </nav>
     </aside>
@@ -96,8 +102,6 @@
                      class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16 z-50">
                     <a href="#"
                        class="block px-4 py-2 account-link hover:text-white">Account</a>
-                    <a href="#"
-                       class="block px-4 py-2 account-link hover:text-white">Support</a>
 
                     <a href="{{ route('logout') }}"
                        class="block px-4 py-2 account-link hover:text-white"
@@ -187,7 +191,7 @@
             integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
             crossorigin="anonymous"></script>
 
-    {{isset($js) ? $js : ''}}
+    @stack('js')
     @livewireScripts
 
 </body>
