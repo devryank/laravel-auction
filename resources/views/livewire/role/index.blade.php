@@ -2,16 +2,16 @@
     <div wire:loading>
         Please wait ...
     </div>
-    @if ($createUser)
-    @livewire('user.create')
+    @if ($createRole)
+    @livewire('role.create')
     @endif
-    @if ($editUser)
-    @livewire('user.update')
+    @if ($editRole)
+    @livewire('role.update')
     @endif
-    @if ($deleteUser)
-    @livewire('user.delete')
+    @if ($deleteRole)
+    @livewire('role.delete')
     @endif
-    <h1 class="text-3xl text-black pb-6">Users</h1>
+    <h1 class="text-3xl text-black pb-6">Roles</h1>
 
     @if (session()->has('message'))
     {{-- alert --}}
@@ -34,9 +34,9 @@
 
         <div class="grid grid-cols-6">
 
-            @if (Auth::user()->hasPermissionTo('create users'))
+            @if (Auth::user()->hasPermissionTo('create roles'))
             <div>
-                <button wire:click="createUser"
+                <button wire:click="createRole"
                         class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Add</button>
                 @endif
             </div>
@@ -62,29 +62,33 @@
                 <thead class="bg-gray-800 text-white">
                     <tr>
                         <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Level</th>
+                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Permissions</th>
                         <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                    @foreach ($users as $user)
+                    @foreach ($roles as $key => $role)
                     <tr>
-                        <td class="w-1/3 text-left py-3 px-4">{{$user->name}}</td>
-                        <td class="w-1/3 text-left py-3 px-4">{{$user->email}}</td>
-                        <td class="w-1/3 text-left py-3 px-4">{{$user->roles->pluck('name')->implode(', ')}}</td>
+                        <td class="w-1/3 text-left py-3 px-4">{{$role->name}}</td>
                         <td class="w-1/3 text-left py-3 px-4">
                             <div class="flex space-x-2">
-
-                                @if ((Auth::user()->hasPermissionTo('update users') AND Auth::user()->id == $user->id)
-                                OR Auth::user()->hasRole('super-admin'))
-                                <button wire:click="editUser({{$user->id}})"
+                                <ul>
+                                    @foreach ($permissions[$key] as $permission)
+                                    <li>{{ $permission['name']}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </td>
+                        <td class="w-1/3 text-left py-3 px-4">
+                            <div class="flex space-x-2">
+                                @if (Auth::user()->hasPermissionTo('update roles'))
+                                <button wire:click="editRole({{$role->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
                                 @else
                                 <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
                                         disabled>Edit</button>
                                 @endif
-                                <button wire:click="deleteUser({{$user->id}})"
+                                <button wire:click="deleteRole({{$role->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
                                         onclick="scrollUp()">
                                     Delete
@@ -96,7 +100,7 @@
                 </tbody>
             </table>
         </div>
-        {{$users->links()}}
+        {{$roles->links()}}
     </div>
 
     @push('js')

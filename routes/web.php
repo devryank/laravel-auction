@@ -25,5 +25,6 @@ Route::name('dashboard.')
     ->prefix('dashboard')
     ->middleware(['auth:sanctum', 'verified'])
     ->group(function () {
-        Route::get('/user', App\Http\Livewire\User\Index::class)->name('user.index');
+        Route::get('/users', App\Http\Livewire\User\Index::class)->name('user.index');
+        Route::get('/roles', App\Http\Livewire\Role\Index::class)->name('role.index');
     });

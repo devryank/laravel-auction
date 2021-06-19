@@ -85,6 +85,7 @@ class Index extends Component
 
     public function deleteUser($id)
     {
+        $this->emit('gotoTop');
         $this->closeUserHandler();
         $user = User::findOrFail($id);
         $this->deleteUser = true;
