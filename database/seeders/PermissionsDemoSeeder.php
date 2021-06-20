@@ -19,16 +19,26 @@ class PermissionsDemoSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'read users']);
-        Permission::create(['name' => 'update users']);
-        Permission::create(['name' => 'delete users']);
+        // create permissions for guard sanctum and web
+        Permission::create(['guard_name' => 'web', 'name' => 'create users']);
+        Permission::create(['guard_name' => 'web', 'name' => 'read users']);
+        Permission::create(['guard_name' => 'web', 'name' => 'update users']);
+        Permission::create(['guard_name' => 'web', 'name' => 'delete users']);
 
-        Permission::create(['name' => 'create roles']);
-        Permission::create(['name' => 'read roles']);
-        Permission::create(['name' => 'update roles']);
-        Permission::create(['name' => 'delete roles']);
+        Permission::create(['guard_name' => 'web', 'name' => 'create roles']);
+        Permission::create(['guard_name' => 'web', 'name' => 'read roles']);
+        Permission::create(['guard_name' => 'web', 'name' => 'update roles']);
+        Permission::create(['guard_name' => 'web', 'name' => 'delete roles']);
+
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'create users']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'read users']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'update users']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'delete users']);
+
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'create roles']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'read roles']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'update roles']);
+        Permission::create(['guard_name' => 'sanctum', 'name' => 'delete roles']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'super-admin']);
