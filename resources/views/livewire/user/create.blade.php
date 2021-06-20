@@ -52,16 +52,16 @@
                         <div class="">
                             <label class="block text-sm text-gray-600"
                                    for="role">Role</label>
-                            <select class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded @error('role') border-2 border-red-300 @enderror"
+                            <select class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded @error('roleId') border-2 border-red-300 @enderror"
                                     id="role"
                                     aria-label="Role"
-                                    wire:model="role">
+                                    wire:model="roleId">
                                 <option>-- Select One --</option>
                                 @foreach ($roles as $role)
-                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
                                 @endforeach
                             </select>
-                            @error('role')
+                            @error('roleId')
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
