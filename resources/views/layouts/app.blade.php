@@ -49,9 +49,8 @@
             background: #3d68ff;
         }
     </style>
-    {{isset($css) ? $css : ''}}
     @livewireStyles
-
+    @stack('css')
 </head>
 
 <body class="bg-gray-100 font-family-karla flex">
