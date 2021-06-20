@@ -4,6 +4,7 @@ namespace App\Http\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Delete extends Component
 {
@@ -29,9 +30,13 @@ class Delete extends Component
 
     public function destroyUser()
     {
-        $user = User::find($this->userId);
-        $name = $user['name'];
-        $user->delete();
-        $this->emit('userDestroyed', $name);
+        if (Auth::user()->hasRole('super-admin') or Auth::user()->id == $this->userId) {
+            $user = User::find($this->userId);
+            $name = $user['name'];
+            $user->delete();
+            $this->emit('userDestroyed', $name);
+        } else {
+            $this->emit('userProhibited', 'delete');
+        }
     }
 }

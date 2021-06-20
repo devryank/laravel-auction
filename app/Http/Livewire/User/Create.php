@@ -48,7 +48,7 @@ class Create extends Component
             $user->assignRole($this->roleId);
             $this->emit('userStored');
         } else {
-            $this->emit('userProhibited');
+            $this->emit('userProhibited', 'create');
         }
     }
 }

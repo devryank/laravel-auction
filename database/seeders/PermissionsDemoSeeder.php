@@ -21,16 +21,19 @@ class PermissionsDemoSeeder extends Seeder
 
         // create permissions
         Permission::create(['name' => 'create users']);
+        Permission::create(['name' => 'read users']);
         Permission::create(['name' => 'update users']);
         Permission::create(['name' => 'delete users']);
 
         Permission::create(['name' => 'create roles']);
+        Permission::create(['name' => 'read roles']);
         Permission::create(['name' => 'update roles']);
         Permission::create(['name' => 'delete roles']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'super-admin']);
         $role1->givePermissionTo('create users');
+        $role1->givePermissionTo('read users');
         $role1->givePermissionTo('update users');
         $role1->givePermissionTo('delete users');
         $role1->givePermissionTo('create roles');
@@ -39,10 +42,14 @@ class PermissionsDemoSeeder extends Seeder
 
         $role2 = Role::create(['name' => 'admin']);
         $role2->givePermissionTo('create users');
-        $role2->givePermissionTo('update users');
+        $role2->givePermissionTo('read users');
+        $role2->givePermissionTo('update users'); // update own account
+        $role2->givePermissionTo('delete users'); // delete own account
 
         $role3 = Role::create(['name' => 'user']);
-        $role3->givePermissionTo('update users');
+        $role3->givePermissionTo('read users');
+        $role3->givePermissionTo('update users'); // update own account
+        $role3->givePermissionTo('delete users'); // delete own account
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 

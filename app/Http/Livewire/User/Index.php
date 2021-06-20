@@ -4,6 +4,7 @@ namespace App\Http\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -76,20 +77,23 @@ class Index extends Component
         session()->flash('message', 'User successfully updated');
     }
 
-    public function userProhibitedHandler()
+    public function userProhibitedHandler($action)
     {
         $this->closeUserHandler();
         session()->flash('color', 'red');
-        session()->flash('message', 'You are not allowed to create an user');
+        session()->flash('message', 'You are not allowed to ' . $action . ' an user');
     }
 
     public function deleteUser($id)
     {
-        $this->emit('gotoTop');
-        $this->closeUserHandler();
-        $user = User::findOrFail($id);
-        $this->deleteUser = true;
-        $this->emit('deleteUser', $user); // User/Delete.php
+        if (Auth::user()->hasRole('super-admin') or Auth::user()->id == $id) {
+            $this->closeUserHandler();
+            $user = User::findOrFail($id);
+            $this->deleteUser = true;
+            $this->emit('deleteUser', $user); // User/Delete.php
+        } else {
+            $this->emit('userProhibited', 'delete');
+        }
     }
 
     public function userDestroyedHandler($name)
