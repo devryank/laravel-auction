@@ -27,22 +27,6 @@
                     <label class="block text-sm text-gray-600"
                            for="role">Role</label>
                     <div class="grid grid-cols-4 gap-4">
-                        {{-- @php
-                        $i = 0;
-                        @endphp
-
-                        @foreach ($permissions as $permission)
-                        {{ $i == 0 OR $i % 4 == 0 ? '<div>' : '' }}
-                        <input type="checkbox"
-                               wire:model="permissionsId"
-                               value="{{ $permission->id }}">{{ $permission->name }}
-
-                        <br>
-                        @php
-                        $i += 1;
-                        @endphp
-                        {{ $i == 0 OR $i % 4 == 0 ? '</div>' : '' }}
-                        @endforeach --}}
                         @php
                         $i = 0;
                         @endphp
@@ -55,8 +39,8 @@
                             @endphp
                             <div>
                                 <input type="checkbox"
-                                       wire:model="permissionsId"
-                                       value="{{ $permission->id }}"> {{ $permission->name }}
+                                       wire:model="permission"
+                                       value="{{ $permission->name }}"> {{ $permission->name }}
                                 <br>
                             </div>
                             @php
@@ -70,7 +54,7 @@
                     <div class="mt-6">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
                                 type="submit">Submit</button>
-                        <button wire:click.prevent="$emit('closeUser')"
+                        <button wire:click.prevent="$emit('closeRole')"
                                 class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">Cancel</button>
                     </div>
                 </form>
