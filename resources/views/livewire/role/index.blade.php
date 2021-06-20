@@ -73,8 +73,21 @@
                         <td class="w-1/3 text-left py-3 px-4">
                             <div class="flex space-x-2">
                                 <ul>
+                                    @php
+                                    $i = 1
+                                    @endphp
                                     @foreach ($permissions[$key] as $permission)
+                                    @if ($i > 6)
+                                    [ ... ]
+                                    @php
+                                    break;
+                                    @endphp
+                                    @else
                                     <li>{{ $permission['name']}}</li>
+                                    @endif
+                                    @php
+                                    $i += 1
+                                    @endphp
                                     @endforeach
                                 </ul>
                             </div>
@@ -102,17 +115,4 @@
         </div>
         {{$roles->links()}}
     </div>
-
-    @push('js')
-    <script>
-        function closeAlert(event){
-          let element = event.target;
-          while(element.nodeName !== "BUTTON"){
-            element = element.parentNode;
-          }
-          element.parentNode.parentNode.removeChild(element.parentNode);
-        }
-
-    </script>
-    @endpush
 </div>
