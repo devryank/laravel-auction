@@ -39,8 +39,8 @@
                             @endphp
                             <div>
                                 <input type="checkbox"
-                                       wire:model="permission"
-                                       value="{{ $permission->name }}"> {{ $permission->name }}
+                                       wire:model="permissionId"
+                                       value="{{ $permission->id }}"> {{ $permission->name }}
                                 <br>
                             </div>
                             @php

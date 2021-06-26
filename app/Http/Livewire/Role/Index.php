@@ -16,9 +16,9 @@ class Index extends Component
     protected $listeners = [
         'refreshRole' => '$refresh',
         'roleStored' => 'roleStoredHandler',
-        'roleUpdate' => 'roleUpdateHandler',
+        'roleUpdated' => 'roleUpdatedHandler',
         'closeRole' => 'closeRoleHandler',
-        'roleProhibited' => 'roleProhibitedHandler',
+        'userProhibited' => 'userProhibitedHandler',
         'roleDestroyed' => 'roleDestroyedHandler',
     ];
 
@@ -73,14 +73,14 @@ class Index extends Component
         $this->emit('roleEdit', $id);
     }
 
-    public function roleUpdateHandler()
+    public function roleUpdatedHandler()
     {
         $this->closeRoleHandler();
         session()->flash('color', 'green');
         session()->flash('message', 'Role successfully updated');
     }
 
-    public function roleProhibitedHandler()
+    public function userProhibitedHandler()
     {
         $this->closeRoleHandler();
         session()->flash('color', 'red');

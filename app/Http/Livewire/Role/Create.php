@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 class Create extends Component
 {
     public $name;
-    public $permission = [];
+    public $permissionId = [];
 
     public function render()
     {
@@ -22,12 +22,12 @@ class Create extends Component
     {
         $this->validate([
             'name' => ['required', 'string', 'min:2', 'max:100'],
-            'permission' => ['required', 'array'],
+            'permissionId' => ['required', 'array'],
         ]);
         if (request()->user()->hasPermissionTo('create roles')) {
 
             $role = Role::create(['name' => $this->name]);
-            $role->givePermissionTo($this->permission);
+            $role->givePermissionTo($this->permissionId);
             $this->emit('roleStored');
         } else {
             $this->emit('roleProhibited', 'create');

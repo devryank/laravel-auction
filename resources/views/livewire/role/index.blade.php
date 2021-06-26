@@ -100,9 +100,9 @@
                             <div class="flex space-x-2">
                                 @if (Auth::user()->hasPermissionTo('update roles')
                                 OR Auth::user()->hasRole('super-admin'))
-                                <button wire:click="editUser({{$role->id}})"
+                                <button wire:click="editRole({{$role->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
-                                <button wire:click="deleteUser({{$role->id}})"
+                                <button wire:click="deleteRole({{$role->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
                                         onclick="scrollUp()">
                                     Delete

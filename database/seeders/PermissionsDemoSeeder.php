@@ -47,6 +47,7 @@ class PermissionsDemoSeeder extends Seeder
         $role1->givePermissionTo('update users');
         $role1->givePermissionTo('delete users');
         $role1->givePermissionTo('create roles');
+        $role1->givePermissionTo('read roles');
         $role1->givePermissionTo('update roles');
         $role1->givePermissionTo('delete roles');
 
