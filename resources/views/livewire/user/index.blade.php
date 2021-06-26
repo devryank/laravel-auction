@@ -84,14 +84,19 @@
                                 OR Auth::user()->hasRole('super-admin'))
                                 <button wire:click="editUser({{$user->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
+                                @else
+                                <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
+                                        disabled>Edit</button>
+                                @endif
+
+                                @if ((Auth::user()->hasPermissionTo('delete users') AND Auth::user()->id == $user->id)
+                                OR Auth::user()->hasRole('super-admin'))
                                 <button wire:click="deleteUser({{$user->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
                                         onclick="scrollUp()">
                                     Delete
                                 </button>
                                 @else
-                                <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
-                                        disabled>Edit</button>
                                 <button class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded opacity-50"
                                         disabled>
                                     Delete
