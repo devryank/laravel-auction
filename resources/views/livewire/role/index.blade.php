@@ -17,7 +17,11 @@
     {{-- alert --}}
     <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-{{session('color')}}-500 alert">
         <span class="text-xl inline-block mr-5 align-middle">
+            @if (session('color') == 'red')
+            <i class="fas fa-info-circle"></i>
+            @else
             <i class="fas fa-check"></i>
+            @endif
         </span>
         <span class="inline-block align-middle mr-8">
             {{session('message')}}
@@ -94,18 +98,23 @@
                         </td>
                         <td class="w-1/3 text-left py-3 px-4">
                             <div class="flex space-x-2">
-                                @if (Auth::user()->hasPermissionTo('update roles'))
-                                <button wire:click="editRole({{$role->id}})"
+                                @if (Auth::user()->hasPermissionTo('update roles')
+                                OR Auth::user()->hasRole('super-admin'))
+                                <button wire:click="editUser({{$role->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
-                                @else
-                                <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
-                                        disabled>Edit</button>
-                                @endif
-                                <button wire:click="deleteRole({{$role->id}})"
+                                <button wire:click="deleteUser({{$role->id}})"
                                         class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
                                         onclick="scrollUp()">
                                     Delete
                                 </button>
+                                @else
+                                <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
+                                        disabled>Edit</button>
+                                <button class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded opacity-50"
+                                        disabled>
+                                    Delete
+                                </button>
+                                @endif
                             </div>
                         </td>
                     </tr>
