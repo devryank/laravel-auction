@@ -80,16 +80,15 @@ class Index extends Component
         session()->flash('message', 'Role successfully updated');
     }
 
-    public function userProhibitedHandler()
+    public function userProhibitedHandler($action)
     {
         $this->closeRoleHandler();
         session()->flash('color', 'red');
-        session()->flash('message', 'You are not allowed to create an role');
+        session()->flash('message', 'You are not allowed to ' . $action . ' an role');
     }
 
     public function deleteRole($id)
     {
-        $this->emit('gotoTop');
         $this->closeRoleHandler();
         $role = Role::findOrFail($id);
         $this->deleteRole = true;
