@@ -70,17 +70,22 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
+
+            @if (Auth::user()->hasPermissionTo('read users'))
             <a href="{{route('dashboard.user.index')}}"
                class="flex items-center {{Request::segment(2) == 'users' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-users mr-3"></i>
                 Users
             </a>
+            @endif
 
+            @if (Auth::user()->hasPermissionTo('read roles'))
             <a href="{{route('dashboard.role.index')}}"
                class="flex items-center {{Request::segment(2) == 'roles' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-layer-group mr-3"></i>
                 Roles
             </a>
+            @endif
         </nav>
     </aside>
 
