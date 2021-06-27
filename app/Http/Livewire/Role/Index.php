@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 
 class Index extends Component
 {
+    public $showRole = false;
     public $createRole = false;
     public $editRole = false;
     public $deleteRole = false;
@@ -48,9 +49,16 @@ class Index extends Component
 
     public function closeRoleHandler()
     {
+        $this->showRole = false;
         $this->editRole = false;
         $this->createRole = false;
         $this->deleteRole = false;
+    }
+
+    public function showRole($roleId)
+    {
+        $this->showRole = true;
+        $this->emit('showRole', $roleId); // Role/Show
     }
 
     public function createRole()
@@ -90,9 +98,8 @@ class Index extends Component
     public function deleteRole($id)
     {
         $this->closeRoleHandler();
-        $role = Role::findOrFail($id);
         $this->deleteRole = true;
-        $this->emit('deleteRole', $role); // Role/Delete.php
+        $this->emit('deleteRole', $id); // Role/Delete.php
     }
 
     public function roleDestroyedHandler($name)

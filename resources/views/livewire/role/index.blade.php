@@ -11,6 +11,9 @@
     @if ($deleteRole)
     @livewire('role.delete')
     @endif
+    @if ($showRole)
+    @livewire('role.show')
+    @endif
     <h1 class="text-3xl text-black pb-6">Roles</h1>
 
     @if (session()->has('message'))
@@ -82,7 +85,8 @@
                                     @endphp
                                     @foreach ($permissions[$key] as $permission)
                                     @if ($i > 6)
-                                    [ ... ]
+                                    <span wire:click="showRole({{$role->id}})"
+                                          class="cursor-pointer text-blue-600 hover:text-blue-400">[ ... ]</span>
                                     @php
                                     break;
                                     @endphp

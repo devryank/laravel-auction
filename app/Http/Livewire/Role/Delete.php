@@ -22,10 +22,11 @@ class Delete extends Component
         ]);
     }
 
-    public function deleteRoleHandler($role)
+    public function deleteRoleHandler($id)
     {
-        $this->roleId = $role['id'];
-        $this->name = $role['name'];
+        $role = Role::findOrFail($id);
+        $this->roleId = $role->id;
+        $this->name = $role->name;
     }
 
     public function destroyRole()
