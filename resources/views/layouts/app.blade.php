@@ -12,8 +12,11 @@
           content="">
 
     <!-- Tailwind -->
-    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css"
+    <link href="{{ mix('css/app.css') }}"
           rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}"
+            defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
@@ -53,19 +56,19 @@
     @stack('css')
 </head>
 
-<body class="bg-gray-100 font-family-karla flex">
+<body class="bg-gray-100 font-family-karla flex dark:bg-gray-900">
 
-    <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+    <aside class="relative bg-sidebar dark:bg-gray-700 h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6">
             <a href="index.html"
                class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
             <button
-                    class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                    class="w-full bg-white dark:bg-blue-600 dark:text-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 dark:hover:bg-blue-800 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button>
         </div>
         <nav class="text-white text-base font-semibold pt-3">
-            <a href="index.html"
+            <a href="{{route('dashboard')}}"
                class="flex items-center {{Request::segment(2) == '' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
@@ -91,10 +94,15 @@
 
     <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->
-        <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+        <header class="w-full items-center bg-white dark:bg-gray-800 py-2 px-6 hidden sm:flex">
             <div class="w-1/2"></div>
             <div x-data="{ isOpen: false }"
                  class="relative w-1/2 flex justify-end">
+                <div id="mode"
+                     class="pt-3 mr-3">
+                    <i id="modeIcon"
+                       class="fas fa-toggle-off fa-2x text-blue-600 dark:text-white cursor-pointer"></i>
+                </div>
                 <button @click="isOpen = !isOpen"
                         class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
                     <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400">
@@ -178,7 +186,7 @@
                 {{$slot}}
             </main>
 
-            <footer class="w-full bg-white text-right p-4">
+            <footer class="w-full bg-white dark:bg-gray-800 dark:text-white text-right p-4">
                 Built by <a target="_blank"
                    href="https://davidgrzyb.com"
                    class="underline">David Grzyb</a>.
@@ -194,10 +202,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
             integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
             crossorigin="anonymous"></script>
-
+    <script src="{{asset('js/darkmode.js')}}"></script>
     @stack('js')
     @livewireScripts
-
 </body>
 
 </html>

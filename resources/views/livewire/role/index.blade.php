@@ -1,5 +1,6 @@
 <div>
-    <div wire:loading>
+    <div wire:loading
+         class="dark:text-white">
         Please wait ...
     </div>
     @if ($createRole)
@@ -14,7 +15,7 @@
     @if ($showRole)
     @livewire('role.show')
     @endif
-    <h1 class="text-3xl text-black pb-6">Roles</h1>
+    <h1 class="text-3xl text-black dark:text-white pb-6">Roles</h1>
 
     @if (session()->has('message'))
     {{-- alert --}}
@@ -39,98 +40,100 @@
 
     <div class="w-full">
 
-        <div class="grid grid-cols-6">
+        <div class="px-5 py-5 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="grid grid-cols-6">
 
-            @if (Auth::user()->hasPermissionTo('create roles'))
-            <div>
-                <button wire:click="createRole"
-                        class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 rounded">Add</button>
-                @endif
-            </div>
-            <div class="col-start-5 col-span-2 text-right">
-                <select wire:model="paginate"
-                        class="px-3 py-2 bg-gray-200">
-                    <option value="
+                @if (Auth::user()->hasPermissionTo('create roles'))
+                <div>
+                    <button wire:click="createRole"
+                            class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded">Add</button>
+                    @endif
+                </div>
+                <div class="col-start-5 col-span-2 text-right">
+                    <select wire:model="paginate"
+                            class="px-3 py-2 bg-gray-200">
+                        <option value="
                 5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                </select>
-                <input wire:model="search"
-                       type="text"
-                       class="px-3 py-2 bg-gray-200"
-                       placeholder="Search">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <input wire:model="search"
+                           type="text"
+                           class="px-3 py-2 bg-gray-200"
+                           placeholder="Search">
+                </div>
             </div>
-        </div>
 
-        <div class="bg-white overflow-auto mt-5">
-            <table class="min-w-full bg-white"
-                   style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                <thead class="bg-gray-800 text-white">
-                    <tr>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Permissions</th>
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-700">
-                    @foreach ($roles as $key => $role)
-                    <tr>
-                        <td class="w-1/3 text-left py-3 px-4">{{$role->name}}</td>
-                        <td class="w-1/3 text-left py-3 px-4">
-                            <div class="flex space-x-2">
-                                <ul>
-                                    @php
-                                    $i = 1
-                                    @endphp
-                                    @foreach ($permissions[$key] as $permission)
-                                    @if ($i > 6)
-                                    <span wire:click="showRole({{$role->id}})"
-                                          class="cursor-pointer text-blue-600 hover:text-blue-400">[ ... ]</span>
-                                    @php
-                                    break;
-                                    @endphp
+            <div class="bg-white overflow-auto mt-5">
+                <table class="min-w-full bg-white dark:bg-gray-800"
+                       style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                    <thead class="bg-gray-800 text-white dark:bg-gray-900">
+                        <tr>
+                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
+                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Permissions</th>
+                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700 dark:text-white">
+                        @foreach ($roles as $key => $role)
+                        <tr>
+                            <td class="w-1/3 text-left py-3 px-4">{{$role->name}}</td>
+                            <td class="w-1/3 text-left py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <ul>
+                                        @php
+                                        $i = 1
+                                        @endphp
+                                        @foreach ($permissions[$key] as $permission)
+                                        @if ($i > 6)
+                                        <span wire:click="showRole({{$role->id}})"
+                                              class="cursor-pointer text-blue-600 hover:text-blue-400">[ ... ]</span>
+                                        @php
+                                        break;
+                                        @endphp
+                                        @else
+                                        <li>{{ $permission['name']}}</li>
+                                        @endif
+                                        @php
+                                        $i += 1
+                                        @endphp
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="w-1/3 text-left py-3 px-4">
+                                <div class="flex space-x-2">
+                                    @if (Auth::user()->hasPermissionTo('update roles')
+                                    OR Auth::user()->hasRole('super-admin'))
+                                    <button wire:click="editRole({{$role->id}})"
+                                            class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
                                     @else
-                                    <li>{{ $permission['name']}}</li>
+                                    <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
+                                            disabled>Edit</button>
                                     @endif
-                                    @php
-                                    $i += 1
-                                    @endphp
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </td>
-                        <td class="w-1/3 text-left py-3 px-4">
-                            <div class="flex space-x-2">
-                                @if (Auth::user()->hasPermissionTo('update roles')
-                                OR Auth::user()->hasRole('super-admin'))
-                                <button wire:click="editRole({{$role->id}})"
-                                        class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded">Edit</button>
-                                @else
-                                <button class="px-3 py-2 text-white font-light tracking-wider bg-yellow-700 rounded opacity-50"
-                                        disabled>Edit</button>
-                                @endif
 
-                                @if (Auth::user()->hasPermissionTo('delete roles')
-                                OR Auth::user()->hasRole('super-admin'))
-                                <button wire:click="deleteRole({{$role->id}})"
-                                        class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
-                                        onclick="scrollUp()">
-                                    Delete
-                                </button>
-                                @else
-                                <button class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded opacity-50"
-                                        disabled>
-                                    Delete
-                                </button>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    @if (Auth::user()->hasPermissionTo('delete roles')
+                                    OR Auth::user()->hasRole('super-admin'))
+                                    <button wire:click="deleteRole({{$role->id}})"
+                                            class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded"
+                                            onclick="scrollUp()">
+                                        Delete
+                                    </button>
+                                    @else
+                                    <button class="px-3 py-2 text-white font-light tracking-wider bg-red-700 rounded opacity-50"
+                                            disabled>
+                                        Delete
+                                    </button>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            {{$roles->links()}}
         </div>
-        {{$roles->links()}}
     </div>
 </div>

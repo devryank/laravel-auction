@@ -57,6 +57,7 @@ class Index extends Component
 
     public function showRole($roleId)
     {
+        $this->closeRoleHandler();
         $this->showRole = true;
         $this->emit('showRole', $roleId); // Role/Show
     }
