@@ -46,9 +46,8 @@
             </div>
             <div class="col-start-5 col-span-2 text-right">
                 <select wire:model="paginate"
-                        class="px-3 py-2 bg-gray-200">
-                    <option value="
-                5">5</option>
+                        class="px-5 py-2 bg-gray-200">
+                    <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>

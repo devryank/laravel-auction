@@ -4,10 +4,13 @@ namespace App\Http\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
+    use WithPagination;
+
     public $createUser = false;
     public $editUser = false;
     public $deleteUser = false;
