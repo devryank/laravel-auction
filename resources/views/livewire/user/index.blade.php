@@ -38,25 +38,56 @@
     <div class="w-full">
 
         <div class="px-5 py-5 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <div class="grid grid-cols-6">
-                @if(Auth::user()->hasPermissionTo('create users'))
-                <div>
-                    <button wire:click="createUser"
-                            class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded">Add</button>
+            <div class="hidden sm:hidden md:block">
+                <div class="grid grid-cols-6">
+                    @if(Auth::user()->hasPermissionTo('create users'))
+                    <div>
+                        <button wire:click="createUser"
+                                class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded">Add</button>
+                    </div>
+                    @endif
+                    <div class="col-start-3 col-span-4 text-right">
+                        <select wire:model="paginate"
+                                class="px-5 py-2 bg-gray-200">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <input wire:model="search"
+                               type="text"
+                               class="px-3 py-2 bg-gray-200"
+                               placeholder="Search">
+                    </div>
                 </div>
-                @endif
-                <div class="col-start-5 col-span-2 text-right">
-                    <select wire:model="paginate"
-                            class="px-5 py-2 bg-gray-200">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                    </select>
-                    <input wire:model="search"
-                           type="text"
-                           class="px-3 py-2 bg-gray-200"
-                           placeholder="Search">
+            </div>
+            <div class="sm:block md:hidden">
+                <div class="grid grid-cols-4">
+                    @if(Auth::user()->hasPermissionTo('create users'))
+                    <div>
+                        <button wire:click="createUser"
+                                class="px-4 py-2 text-white font-light tracking-wider bg-gray-900 dark:bg-blue-600 rounded">Add</button>
+                    </div>
+                    @endif
+                    <div class="col-start-3 text-right">
+                        <div class="grid grid-cols-2">
+                            <div>
+                                <select wire:model="paginate"
+                                        class="py-2 bg-gray-200">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input wire:model="search"
+                                       type="text"
+                                       class="py-2 bg-gray-200"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

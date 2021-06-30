@@ -26,7 +26,7 @@
                     </div>
                     <label class="block text-sm text-gray-600 dark:text-white"
                            for="role">Role</label>
-                    <div class="grid grid-cols-4 gap-4 dark:text-white">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 dark:text-white">
                         @php
                         $i = 0;
                         @endphp

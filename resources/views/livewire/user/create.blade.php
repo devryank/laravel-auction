@@ -9,8 +9,8 @@
                       method="post"
                       class="p-5 bg-white dark:bg-gray-800 rounded shadow-xl">
                     @csrf
-                    <div class="grid grid-cols-4 gap-4">
-                        <div class="">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="col-span-1">
                             <label class="block text-sm text-gray-600 dark:text-white"
                                    for="name">Name</label>
                             <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('name') border-2 border-red-300 @enderror"
@@ -23,7 +23,7 @@
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="">
+                        <div class="col-span-1">
                             <label class="block text-sm text-gray-600 dark:text-white"
                                    for="email">Email</label>
                             <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('email') border-2 border-red-300 @enderror"
@@ -36,7 +36,7 @@
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="">
+                        <div class="col-span-1">
                             <label class="block text-sm text-gray-600 dark:text-white"
                                    for="password">Password</label>
                             <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded @error('password') border-2 border-red-300 @enderror"
@@ -49,7 +49,7 @@
                             <small class="text-red-500">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="">
+                        <div class="col-span-1">
                             <label class="block text-sm text-gray-600 dark:text-white"
                                    for="role">Role</label>
                             <select class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded @error('roleId') border-2 border-red-300 @enderror"

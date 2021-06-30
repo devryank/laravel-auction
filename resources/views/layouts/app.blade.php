@@ -112,9 +112,6 @@
                         class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen"
                      class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16 z-50">
-                    <a href="#"
-                       class="block px-4 py-2 account-link hover:text-white">Account</a>
-
                     <a href="{{ route('logout') }}"
                        class="block px-4 py-2 account-link hover:text-white"
                        onclick="event.preventDefault();
@@ -148,23 +145,27 @@
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'"
                  class="flex flex-col pt-4">
-                <a href="index.html"
-                   class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{route('dashboard')}}"
+                   class="flex items-center {{Request::segment(2) == '' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="tables.html"
-                   class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
-                    <i class="fas fa-table mr-3"></i>
-                    Tables
+                @if (Auth::user()->hasPermissionTo('read users'))
+                <a href="{{route('dashboard.user.index')}}"
+                   class="flex items-center {{Request::segment(2) == 'users' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                    <i class="fas fa-users mr-3"></i>
+                    Users
                 </a>
-                <a href="#"
-                   class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user mr-3"></i>
-                    My Account
+                @endif
+                @if (Auth::user()->hasPermissionTo('read roles'))
+                <a href="{{route('dashboard.role.index')}}"
+                   class="flex items-center {{Request::segment(2) == 'roles' ? 'active-nav-link' : ''}} text-white py-4 pl-6 nav-item">
+                    <i class="fas fa-layer-group mr-3"></i>
+                    Roles
                 </a>
+                @endif
                 <a href="{{ route('logout') }}"
-                   class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+                   class="flex items-center text-white py-4 pl-6 nav-item"
                    onclick="event.preventDefault();
                                        document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt mr-3"></i>
