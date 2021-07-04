@@ -1,61 +1,93 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com"
+       target="_blank"><img
+             src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg"
+             width="400"></a></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg"
+             alt="Build Status"></a>
+    <a href="https://packagist.org/packages/laravel/framework"><img
+             src="https://img.shields.io/packagist/dt/laravel/framework"
+             alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/laravel/framework"><img
+             src="https://img.shields.io/packagist/v/laravel/framework"
+             alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/laravel/framework"><img
+             src="https://img.shields.io/packagist/l/laravel/framework"
+             alt="License"></a>
 </p>
 
-## About Laravel
+## Introduction
+Laravel 8 starter kit with Bootstrap 4 and some package that provide you to build website more faster.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Include
+- <a href="https://laravel-livewire.com/">Laravel Livewire 2.0</a>
+- <a href="https://jetstream.laravel.com/2.x/introduction.html">Jetstream 2.3</a>
+- <a href="https://spatie.be/docs/laravel-permission/v4/introduction">Spatie 4.2</a>
+- <a href="https://github.com/davidgrzyb/tailwind-admin-template">Tailwind Admin Template</a>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
+Run these command from your terminal
+```
+git clone https://github.com/devryank/laravel-tailwind-starter-kit
+```
+- rename ``.env.example`` to ``.env``
+- setting your env
+- Composer command
+```
+composer install
+composer dump-autoload
+```
+- Artisan command
+```
+php artisan key:generate
+php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
+```
 
-## Learning Laravel
+## Demo Credentials
+### Superadmin
+email : superadmin@app.test
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+password : password
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Admin
+email : admin@app.test
 
-## Laravel Sponsors
+password : password
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### User
+email : user@app.test
 
-### Premium Partners
+password : password
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+## Setting Permission
+You can see setting for permission in ``database/seeders/PermissionsDemoSeeder.php``
 
-## Contributing
+Superadmin :
+- Roles
+    - Create
+    - Read
+    - Update
+    - Delete
+- Users
+    - Create
+    - Read
+    - Update
+    - Delete
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Admin :
+- Users
+    - Create
+    - Read (all users)
+    - Update (own account)
+    - Delete (own account)
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+User :
+- Users
+    - Read (own account)
+    - Update (own account)
+    - Delete (own account)
 
 ## License
 
